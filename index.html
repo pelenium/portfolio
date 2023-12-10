@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        body {
+            justify-content: center;
+            text-align: center;
+            background-color: #111111;
+            color: #eeeeee;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #f0f6fc;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        a {
+            color: #4d8ce6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            align-items: center;
+            list-style-type: none;
+        }
+
+        ol {
+            list-style-type: decimal;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        li {
+            margin-right: 20px;
+            display: inline;
+        }
+
+        .repo {
+            display: inline;
+            margin-bottom: 15px;
+            margin-right: 15px;
+        }
+
+        #repos {
+            margin: 0 auto;
+            width: 60%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Ilya Chernyshov</h1>
+            <h3>I'm just a programming fan</h3>
+        </header>
+        <hr>
+        <h2>Some links</h2>
+        <ul class="links">
+            <li><a href="https://github.com/pelenium"><img src="https://skillicons.dev/icons?i=github" /></a></li>
+            <li><a href="https://t.me/nebulora"><img style="height: 48px;"
+                        src="https://i.postimg.cc/8zVt3p6r/telegram-logo-cr.png"></a> </li>
+        </ul>
+
+        <main class="content">
+            <h2>Languages that I know</h2>
+            <img src="https://skillicons.dev/icons?i=go,scala,cs,python" />
+            <h2>Other technologies</h2>
+            <img src="https://skillicons.dev/icons?i=git,postgres,linux" />
+            <br>
+            <h2>My projects</h2>
+            <div id="repos"></div>
+        </main>
+
+        <script>
+            fetch('https://api.github.com/users/pelenium/repos')
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    for (var i = 0; i < data.length; i++) {
+                        var src = "https://github-readme-stats.vercel.app/api/pin/?theme=dark&username=pelenium&repo=" + data[i].name;
+                        var image = document.createElement('img');
+                        image.className = "repo";
+                        image.src = src;
+
+                        var a = document.createElement('a');
+                        a.href = "https://github.com/pelenium/" + data[i].name;
+                        a.appendChild(image);
+                        document.getElementById("repos").appendChild(a);
+                    }
+                });
+        </script>
+    </div>
+</body>
+
+</html>
